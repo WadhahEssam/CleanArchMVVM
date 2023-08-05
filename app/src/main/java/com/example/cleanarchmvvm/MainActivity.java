@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -36,5 +39,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab_add);
+        floatingActionButton.setOnClickListener(view -> {
+            startActivity(new Intent(this, CreateNoteActivity.class));
+        });
     }
 }
