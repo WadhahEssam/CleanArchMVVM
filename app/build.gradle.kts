@@ -32,15 +32,8 @@ android {
 }
 
 dependencies {
+    // installing livedata and view model resulted in an error (duplicate deps), it makes sense that they are all already there
     val room_version = "2.5.2"
-    val lifecycle_version = "2.6.1"
-
-    // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
-
-    // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata:$lifecycle_version")
-    annotationProcessor("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
 
     // room
     implementation("androidx.room:room-runtime:$room_version")

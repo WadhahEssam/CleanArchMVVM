@@ -5,6 +5,7 @@ package com.example.cleanarchmvvm;
 // room will automatically generate all the necessary code with use
 
 // it is usually recommended to add 1 dao for each entity
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
