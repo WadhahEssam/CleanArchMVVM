@@ -6,6 +6,9 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 
 // Repository is just a normal java class not directly related to the room library
 // it is the one that is actually responsible for crud operations for the database.
@@ -15,7 +18,7 @@ import java.util.List;
 public class AppRepository {
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
-
+    private Executor executor = Executors.newSingleThreadExecutor();
 
     public AppRepository(Application application) {
         AppDatabase database = AppDatabase.getInstance(application);
@@ -25,76 +28,43 @@ public class AppRepository {
 
 
     public void insert(Note note) {
-        new InsertNoteAsyncTask(noteDao).execute(note);
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDao.insert(note);
+            }
+        });
     }
 
     public void update(Note note) {
-        new UpdateNoteAsyncTask(noteDao).execute(note);
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDao.update(note);
+            }
+        });
     }
 
     public void delete(Note note) {
-        new DeleteNoteAsyncTask(noteDao).execute(note);
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDao.delete(note);
+            }
+        });
     }
 
     public void deleteAllNotes() {
-        new DeleteAllNotesAsyncTask(noteDao).execute();
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDao.deleteAllNotes();
+            }
+        });
     }
 
     public LiveData<List<Note>> getAllNotes() {
         return allNotes;
-    }
-
-    private static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void> {
-
-        private NoteDao noteDao;
-        private InsertNoteAsyncTask(NoteDao noteDao) {
-            this.noteDao = noteDao;
-        }
-
-        @Override
-        protected Void doInBackground(Note... notes) {
-            noteDao.insert(notes[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteNoteAsyncTask extends AsyncTask<Note, Void, Void> {
-        private NoteDao noteDao;
-        private DeleteNoteAsyncTask(NoteDao noteDao) {
-            this.noteDao = noteDao;
-        }
-
-        @Override
-        protected Void doInBackground(Note... notes) {
-            noteDao.insert(notes[0]);
-            return null;
-        }
-    }
-
-    private static class UpdateNoteAsyncTask extends AsyncTask<Note, Void, Void> {
-        private NoteDao noteDao;
-        private UpdateNoteAsyncTask(NoteDao noteDao) {
-            this.noteDao = noteDao;
-        }
-
-        @Override
-        protected Void doInBackground(Note... notes) {
-            noteDao.delete(notes[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteAllNotesAsyncTask extends AsyncTask<Void, Void, Void> {
-        private NoteDao noteDao;
-        private DeleteAllNotesAsyncTask(NoteDao noteDao) {
-            this.noteDao = noteDao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            noteDao.deleteAllNotes();
-            return null;
-        }
     }
 
 }

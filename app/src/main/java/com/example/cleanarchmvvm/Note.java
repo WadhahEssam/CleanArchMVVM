@@ -9,7 +9,9 @@ import androidx.room.PrimaryKey;
 public class Note {
     @PrimaryKey(autoGenerate = true) // so you don't have to manage it
     private int id;
+    @ColumnInfo(defaultValue = "Empty Title")
     private String title;
+    @ColumnInfo(defaultValue = "No Description")
     private String description;
     @ColumnInfo(name = "priority") // you do this if you want to change the column name.
     private int priority;

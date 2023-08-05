@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 // @Database defines the whole database of your app and what tables it has
 // the version is helpful whenever you make changes to the database, you can
 // provide a mechanism to migrate users from an old version to a new version
-@Database(entities = {Note.class}, version = 1) // here you define the tables you are going to have + the version of the database
+@Database(entities = {Note.class}, version = 2) // here you define the tables you are going to have + the version of the database
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance; // because we are going to make this class singleton
 
