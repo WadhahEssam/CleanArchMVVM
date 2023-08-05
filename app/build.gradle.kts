@@ -32,6 +32,22 @@ android {
 }
 
 dependencies {
+    val room_version = "2.5.2"
+    val lifecycle_version = "2.6.1"
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
+
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata:$lifecycle_version")
+    annotationProcessor("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
+
+    // room
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+
+    // CardView
+    implementation("androidx.cardview:cardview:1.0.0")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
